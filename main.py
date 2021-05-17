@@ -50,7 +50,7 @@ def submitFiles():
 @app.route('/applyRules/<templateName>', methods = ['GET', 'POST'])
 @cross_origin(support_credentials=True)
 def applyRules(templateName):
-    document = '../misc/EYResources/Input Sample.pdf'
+    document = './misc/EYResources/Input Sample.pdf'
     doc = fitz.open(document)
     pdfDoc = PDFDoc(document)
     template = es.get(index="template", id=templateName)
@@ -112,7 +112,7 @@ def extractData(doc, pdfDoc, template_data):
           titles_coordinates.append(min_text_coordinatee)
           print("Title on Coordinate",min_text_coordinatee)
 
-    outfname =  "../output/new_annot_test_api.pdf"
+    outfname =  "./output/new_annot_test_api.pdf"
     pdfDoc.Save(outfname, SDFDoc.e_linearized)
 
     return styles, titles_size, outfname
@@ -132,7 +132,7 @@ def addStickyNote(page, doc, pos, element, error):
 @app.route('/saveTemplate/<templateName>', methods = ['GET', 'POST'])
 @cross_origin(support_credentials=True)
 def saveTemplateToDB(templateName):
-  excel_data_df = pandas.read_excel('../misc/EYResources/Brand guidelines.xlsx', sheet_name='Typography brand Guidelines')
+  excel_data_df = pandas.read_excel('./misc/EYResources/Brand guidelines.xlsx', sheet_name='Typography brand Guidelines')
 
   json_str = excel_data_df.to_json()
   template = json.loads(json_str)
